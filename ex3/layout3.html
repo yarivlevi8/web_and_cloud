@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Amiko" />
     <title>Yariv's layout3</title>
 </head>
-<body class="responsive">
+
+<body onload="init()" class="responsive">
     <header>
         <nav>
             <section class="gray-aside">
@@ -19,9 +21,115 @@
             </section>
         </nav>
     </header>
-
+    <!-- blackbox -->
     <section class="yellow-before-footer"></section>
     <aside class="blue-aside"></aside>
     <footer class="footer-dynamic"></footer>
+
+
+    <!-- replace with .js file -->
+    <script>
+
+        function init() {
+            document.querySelector("header").innerHTML += "<div id='blackboxx'></div>";
+
+            let blackBoxButton = document.querySelector("#blackboxx");
+            blackBoxButton.id = "blackboxx";
+            blackBoxButton.className = "blackbox";
+            blackBoxButton.style.position = "absolute";
+            blackBoxButton.style.width = "80px";
+            blackBoxButton.style.height = "80px";
+            blackBoxButton.style.left = "1336px";
+            blackBoxButton.style.top = "21px";
+            blackBoxButton.style.background = "#000000";
+
+            blackBoxButton.addEventListener("click", addBoxes);
+
+        }
+
+        function addBoxes() {
+
+            let size = 80;
+            let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            let blackBoxMargin = 132;
+            let container = document.createElement("div");
+            container.className = "box-container";
+            container.style.display = "flex";
+            container.style.justifyContent = "center";
+            container.style.alignItems = "center";
+            container.style.flexWrap = "wrap";
+            container.style.width = "964px";
+            container.style.height = "997px";
+            container.style.margin = "auto";
+            container.style.backgroundColor = "#FFFFFF";
+            document.body.appendChild(container);
+
+            let blackBoxPositions = [
+                { left: blackBoxMargin, top: blackBoxMargin },
+                { left: blackBoxMargin * 2 + size, top: blackBoxMargin },
+                { left: blackBoxMargin * 3 + size * 2, top: blackBoxMargin }
+            ];
+
+            let previousBox = null;
+            for (let i = 0; i < 3; i++) {
+                let box = document.createElement("div");
+                box.className = "box";
+                box.style.width = size + "px";
+                box.style.height = size + "px";
+                box.style.background = "#000000";
+                box.textContent = letters[Math.floor(Math.random() * letters.length)];
+
+                if (i === 2 && previousBox) {
+                    // Set the third box to the same letter as the first box in the next iteration
+                    box.textContent = previousBox.textContent;
+                }
+
+                previousBox = box;
+
+                box.style.color = "#FFFFFF";
+                box.style.fontSize = "40px";
+                box.style.display = "flex";
+                box.style.justifyContent = "center";
+                box.style.alignItems = "center";
+                box.style.position = "absolute";
+                box.style.left = blackBoxPositions[i].left + "px";
+                box.style.top = blackBoxPositions[i].top + "px";
+                container.appendChild(box);
+                size += 20;
+            }
+
+            // let size = 80;
+            // let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            // let container = document.createElement("div");
+            // container.className = "box-container";
+            // container.style.display = "flex";
+            // container.style.justifyContent = "center";
+            // container.style.alignItems = "center";
+            // container.style.flexWrap = "wrap";
+            // container.style.width = "80px";
+            // container.style.height = "80px";
+            // container.style.marginTop = "30px";
+            // container.style.backgroundColor = "#FFFFFF";
+            // document.body.appendChild(container);
+
+            // for (let i = 0; i < 3; i++) {
+            //     let box = document.createElement("div");
+            //     box.className = "box";
+            //     box.style.width = size + "px";
+            //     box.style.height = size + "px";
+            //     box.style.background = "#000000";
+            //     box.textContent = letters[Math.floor(Math.random() * letters.length)];
+            //     box.style.color = "#FFFFFF";
+            //     box.style.fontSize = "40px";
+            //     box.style.display = "flex";
+            //     box.style.justifyContent = "center";
+            //     box.style.alignItems = "center";
+            //     container.appendChild(box);
+            //     size += 20;
+            // }
+
+        }
+    </script>
 </body>
+
 </html>
